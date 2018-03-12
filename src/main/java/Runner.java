@@ -24,14 +24,19 @@ public class Runner {
         DBHelper.update(author1);
 
 
+// DELETE ALL TESTS
 
-        DBHelper.deleteAll("Book");
+//        DBHelper.deleteAll("Book");
+
 //          why can't I delete all Authors without deleting books?
 //          Surely I should be able to delete an Author, taking all of their Books with it?
-        DBHelper.deleteAll("Author");
+
+//        DBHelper.deleteAll("Author");
 
         List<Book> books = DBHelper.getAll("Book");
         List<Author> authors = DBHelper.getAll("Author");
+
+        List<Book> booksByAuthor = DBHelper.getBooksByAuthor(author1.getId());
 
         // for testing
 //        DBHelper.delete(book1);

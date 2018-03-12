@@ -1,5 +1,6 @@
 package db;
 
+import models.Book;
 import org.hibernate.*;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class DBHelper {
         return results;
     }
 
-//    deleteAll
+
     public static void deleteAll(String className){
         session = HibernateUtil.getSessionFactory().openSession();
 
@@ -89,6 +90,25 @@ public class DBHelper {
         } finally {
             session.close();
         }
+    }
+
+    public static List<Book> getBooksByAuthor(int authorId){
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Book> books = null;
+        try {
+            transaction = session.beginTransaction();
+            String hql = "from Book where authorId = :authorId";
+            Query query = session.createQuery(hql);
+            query.setInteger("authorId", authorId);
+            books = query.list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return books;
     }
 //    books by author
 //    find object by id
