@@ -15,5 +15,8 @@ public class Runner {
         DBHelper.save(author2);
         DBHelper.save(book1);
         DBHelper.save(book2);
+
+        author1.setFirstName("Arnold");
+        DBHelper.update(author1);
     }
 }
