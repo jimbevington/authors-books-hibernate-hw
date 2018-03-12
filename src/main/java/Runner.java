@@ -38,6 +38,9 @@ public class Runner {
 
         List<Book> booksByAuthor = DBHelper.getBooksByAuthor(author1.getId());
 
+        Author foundAuthor = DBHelper.findByID("Author", author1.getId());
+        Book foundBook = DBHelper.findByID("Book", book1.getId());
+        Book noBook = DBHelper.findByID("Book", 12);
         // for testing
 //        DBHelper.delete(book1);
 //        NOTE:-  found problem with Cascade Delete, couldn't delete the author without causing an error

@@ -110,8 +110,34 @@ public class DBHelper {
         }
         return books;
     }
-//    books by author
-//    find object by id
+
+
+    public static <T> T findByID(String className, int id){
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<T> results = null;
+
+        try {
+            transaction = session.beginTransaction();
+            String hql = "from " + className + " where id = :id";
+            Query query = session.createQuery(hql);
+            query.setInteger("id", id);
+            results = query.list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+//        return first item if results isn't empty ...
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+//        ... otherwise, return null
+        return null;
+    }
 
 
 }
