@@ -1,9 +1,6 @@
 package db;
 
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -75,9 +72,24 @@ public class DBHelper {
         }
         return results;
     }
-//    getAll
+
 //    deleteAll
-//    delete
+    public static void deleteAll(String className){
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            transaction = session.beginTransaction();
+            String hql = "delete from " + className;
+            Query query = session.createQuery(hql);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 //    books by author
 //    find object by id
 

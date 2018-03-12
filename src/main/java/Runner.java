@@ -23,12 +23,20 @@ public class Runner {
         author1.setFirstName("Arnold");
         DBHelper.update(author1);
 
+
+
+        DBHelper.deleteAll("Book");
+//          why can't I delete all Authors without deleting books?
+//          Surely I should be able to delete an Author, taking all of their Books with it?
+        DBHelper.deleteAll("Author");
+
         List<Book> books = DBHelper.getAll("Book");
         List<Author> authors = DBHelper.getAll("Author");
 
         // for testing
 //        DBHelper.delete(book1);
 //        NOTE:-  found problem with Cascade Delete, couldn't delete the author without causing an error
+
 
 
     }
