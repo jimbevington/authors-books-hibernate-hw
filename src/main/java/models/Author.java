@@ -10,6 +10,8 @@ public class Author {
     private String lastName;
     private Set<Book> books;
 
+
+    //    hibernate uses when creating class to map to Table
     public Author() {
     }
 

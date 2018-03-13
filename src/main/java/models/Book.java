@@ -6,6 +6,7 @@ public class Book {
     private String title;
     private Author author;
 
+//    hibernate uses when creating class to map to Table
     public Book() {
     }
 

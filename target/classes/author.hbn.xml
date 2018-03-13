@@ -6,11 +6,14 @@
 <hibernate-mapping>
     <class name="models.Author" table="authors">
         <id name="id" type="int" column="id">
-            <generator class="identity"/>
+            <generator class="identity"/> <!-- make the primary key -->
         </id>
         <property name="firstName" column="firstName" type="string"/>
         <property name="lastName" column="lastName" type="string"/>
+
+
         <set name="books" inverse="true" cascade="all" lazy="false">
+            <!-- this is the foreign key in the BOOK table-->
             <key>
                 <column name="authorId" not-null="true"/>
             </key>

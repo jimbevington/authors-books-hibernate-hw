@@ -111,18 +111,18 @@ public class DBHelper {
         return books;
     }
 
-
+//  preferred way of doing this, without needing to use .list() in query
     public static <T> T findByID(String className, int id){
 
         session = HibernateUtil.getSessionFactory().openSession();
-        List<T> results = null;
+        T result = null;
 
         try {
             transaction = session.beginTransaction();
             String hql = "from " + className + " where id = :id";
             Query query = session.createQuery(hql);
             query.setInteger("id", id);
-            results = query.list();
+            result = (T)query.uniqueResult();
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
@@ -130,14 +130,40 @@ public class DBHelper {
         } finally {
             session.close();
         }
-
-//        return first item if results isn't empty ...
-        if (results.size() > 0) {
-            return results.get(0);
-        }
-//        ... otherwise, return null
-        return null;
+        return result;
     }
+
+
+//    this way uses .list()
+
+//    public static <T> T findByID(String className, int id){
+//
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        List<T> results = null;
+//
+//        try {
+//            transaction = session.beginTransaction();
+//            String hql = "from " + className + " where id = :id";
+//            Query query = session.createQuery(hql);
+//            query.setInteger("id", id);
+//            results = query.list();
+//            transaction.commit();
+//        } catch (HibernateException e) {
+//            transaction.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//
+////        return first item if results isn't empty ...
+//        if (results.size() > 0) {
+//            return results.get(0);
+//        }
+////        ... otherwise, return null
+//        return null;
+//    }
+
+
 
 
 }
